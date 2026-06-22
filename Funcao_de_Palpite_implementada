@@ -1,0 +1,84 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+void esperarEnter() {
+    printf("\n[ Pressione ENTER para continuar... ]\n");
+    while (getchar() != '\n'); 
+}
+
+int main() {
+    
+    int senha[4];
+    int palpite[4];
+    char nome_jogador[30];
+    int acertou = 0;
+    int tentativas = 0;
+    
+    printf("~ Narrador: Voce esta em um mundo cheio de monstros e magias...\n");
+    printf("Enquanto se aventurava por ruinas devastadas voce escuta uma voz...\n");
+    printf("Tal voz tenta se comunicar com voce...\n");
+    printf("Ela comeca com uma voz extremamente animada:\n");
+    printf("~ Voz desconhecida:  \"BRAVO AVENTUREIRO! SEJA BEM VINDO AS RUINAS!!, ME DIGA SEU NOME!\"\n");
+    printf("~ Jogador: Quem ta falando?\n");
+    printf("~ Voz desconhecida: SOU EU, nao e obvio?! A MAIS PODEROSA, A MAIS CORAJOSA, A MAIS LEGAL!!\n");
+    printf("EU MESMO.... A GRANDIOSA LILY!! AGORA DEIXE DE BOBEIRA, ME DIGA SEU NOME!!\n\n");
+    
+    printf("~ Jogador: Prazer! Sou o: ");
+    scanf("%29s", nome_jogador);
+    getchar(); // Limpa o "Enter" que ficou no teclado para não quebrar o próximo esperarEnter
+    
+    printf("\n~ Lily: PRAZER %s! Oque voce veio fazer nessas bandas?\n", nome_jogador);
+    printf("~ %s: Ouvi dizer que nesse lugar existe um bau que guarda um tesouro FODA!\n", nome_jogador);
+    printf("~ Lily: Ah entendi... entao voce veio atras do tesouro... voce nao veio brincar com a Lily? :C\n");
+    printf("~ Narrador: Lily esta decepcionada com voce...\n");
+    printf("~ %s: NAO! NAO! Eu posso brincar com voce...\n", nome_jogador);
+    printf("~ Lily: EBAAAAA!!!! ENTAO VAMOS JOGAR!!\n");
+    
+    esperarEnter();
+
+    printf("\n~ Lily: O jogo funciona assim: eu tranquei o bau com uma senha magica de 4 digitos!\n");
+    printf("Cada digito e um numero de 0 a 9. Voce chuta os 4 numeros separados por espaco.\n");
+    printf("Eu vou te dizer quantos voce acertou na posicao certa, e quantos existem na senha mas tao na posicao errada!\n");
+    
+    esperarEnter();
+
+    srand(time(NULL));
+    for(int i = 0; i < 4; i++) {
+        senha[i] = rand() % 10; 
+    }
+
+    while (!acertou) {
+        tentativas++;
+        printf("--------------------------------------------------\n");
+        printf("Tentativa #%d\n", tentativas);
+        printf("%s, digite seu palpite (4 numeros separados por espaco): ", nome_jogador);
+        
+        scanf("%d %d %d %d", &palpite[0], &palpite[1], &palpite[2], &palpite[3]);
+
+        int posicao_certa = 0;
+        int fora_posicao = 0;
+      
+        for(int i = 0; i < 4; i++) {
+            if(palpite[i] == senha[i]) {
+                posicao_certa++;
+                senha_marcada[i] = 1;
+                palpite_marcado[i] = 1;
+            }
+        }
+
+        for(int i = 0; i < 4; i++) {
+            if(!palpite_marcado[i]) { 
+                for(int j = 0; j < 4; j++) {
+                    if(!senha_marcada[j] && palpite[i] == 1 && palpite[i] == senha[j]) {
+                    }
+                    if(!senha_marcada[j] && palpite[i] == senha[j]) {
+                        fora_posicao++;
+                        senha_marcada[j] = 1; 
+                        break; 
+                    }
+                }
+            }
+        }
+return 0;
+}
